@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid red;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class='triangle'>
+
+    </div>
+    <script>
+
+        /* function sum() {
+            const param = [];
+            param.push(...arguments);
+            function fn() {
+                param.push(...arguments);
+                return fn;
+            }
+
+            fn.valueOf = () => {
+                console.log(param.reduce((total, item) => total+item, 0))
+            }
+
+            return fn;
+            
+        }
+
+        sum(1, 2, 3).valueOf() 
+        sum(2, 3)(2).valueOf()
+        sum(1)(2)(3)(4).valueOf() 
+        sum(2)(4, 1)(2).valueOf() */
+
+        console.log(fish1,fish2,fish3);//un func un
+        var fish1 = function(){
+            console.log('welcome to Palfish-1')
+        }
+        function fish2(){
+            console.log('welcome to Palfish-2')
+        }
+        var fish3 = 'welcome to Palfish-3'
+        var fish1,fish2,fish3;
+
+        console.log(fish1,fish2,fish3);//  func func string
+        var fish4;
+    </script>
+</body>
+</html>

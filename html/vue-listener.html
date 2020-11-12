@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function defineReactive(data, key, val) {
+            let dep = [];
+            Object.defineProperty(data, key, {
+                enumerable: true,
+                configurable: true,
+                get: function() {
+                    console.log("window.target", window.target);
+                    dep.push(window.target);
+                    return val;
+                },
+                set: function(newVal) {
+                    if(newVal === val) {
+                        return val;
+                    }
+                    return newVal;
+                }
+            })
+        }
+        let person = {};
+        defineReactive(person, 'name', "aaaa");
+        person.name;
+    </script>
+</body>
+</html>

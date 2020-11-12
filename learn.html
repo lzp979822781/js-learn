@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .triangle {
+            width: 0;
+            height: 0;
+            border-top:50px solid red;
+            border-right: 50px solid transparent;
+            border-bottom: 50px solid blue;
+            border-left: 50px solid yellow;
+        }
+        .wrapper{
+            width: 50%;
+            float: left;
+        }
+        .cube{
+            font-size: 4em;
+            width: 2em;
+            margin: 1.5em auto;
+            transform-style:preserve-3d;
+            transform:rotateX(10deg) rotateY(30deg);
+        }
+        .side{
+            position: absolute;
+            width: 2em;
+            height: 2em;
+            background: rgba(255,99,71,0.6);
+            border: 1px solid rgba(0,0,0,0.5);
+            color: white;
+            text-align: center;
+            line-height: 2em;
+        }
+        .front{
+            /* 正对屏幕向前移动 */
+            transform:translateZ(1em);
+        }
+        .bottom{
+            transform:rotateX(-90deg) translateZ(1em);
+        }
+        .top{
+            transform:rotateX(90deg) translateZ(1em);
+        }
+        .left{
+            transform:rotateY(-90deg) translateZ(1em);
+        }
+        .right{
+            transform:rotateY(90deg) translateZ(1em);
+        }
+        .back{
+            /* 正对屏幕向后移动 */
+            transform:translateZ(-1em);
+        }
+
+        .parent {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /* margin-top: 20px; */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="triangle">
+
+    </div>
+    <div class="wrapper w1">
+        <div class="cube">
+            <div class="side front">1</div>
+            <div class="side back">6</div>
+            <div class="side right">4</div>
+            <div class="side left">3</div>
+            <div class="side top">5</div>
+            <div class="side bottom">2</div>
+        </div>
+    </div>
+    <script>
+        function Animal(name) {
+            this.name = name || 'Animal';
+            this.sleep = function() {
+                console.log(this.name + '正在睡觉');
+            }
+        }
+        Animal.prototype.eat = function(food) {
+            console.log(this.name + '正在吃' + food);
+        }
+
+        function Cat(name,age) {
+            Animal.apply(this, [...arguments]);
+            this.name = name || 'Tom';
+            this.age = age || 16;
+        }
+
+        (function() {
+            function Super() {};
+            Super.prototype = Animal.prototype;
+            Cat.prorotype = new Super();
+            Cat.prototype.constructor = Cat;
+        })()
+
+        var cat = new Cat();
+        console.log(cat.name);
+        console.log(cat.sleep());
+        console.log(cat instanceof Animal); // true
+        console.log(cat instanceof Cat); //true
+
+        function once(func) {
+            let isValiable = true;
+            return function() {
+                if(isValiable) {
+                    isValiable = false;
+                    return func.apply(null, arguments)
+                }
+            }
+        }
+
+        var time = 0;
+        const timer = requestAnimationFrame(function() {
+            console.log(time++, new Date());
+        })
+
+    </script>
+</body>
+</html>

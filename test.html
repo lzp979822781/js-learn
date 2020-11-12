@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .callout {
+            position: relative;
+            width: 200px;
+            height: 50px;
+            border: 1px solid #999999;
+        }
+
+        .callout::before {
+            position: absolute;
+            content: "你aaaaaaaa";
+            top: -.4em;
+            left: 1em;
+            padding: .35em;
+            background: greenyellow;
+            border: 1px solid #dedede;
+            border-left: 0;
+            border-bottom: 0;
+            /* transform: rotate(45deg); */
+        }
+
+        .mockInput {
+            width: 200px;
+            height: 30px;
+            border: 1px solid #dedede;
+            border-radius: 4px;
+            margin-top: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes blink {
+            50% {
+                color: #000;
+                background: blueviolet;
+                opacity:.5;
+            }
+        }
+        @-webkit-keyframes blink {
+            50% {
+                color: #000;
+                background: blueviolet;
+            }
+        }
+        @-ms-keyframes blink {
+            50% {
+                color: #000;
+                background: blueviolet;
+            }
+        }
+        @-moz-keyframes blink {
+            50% {
+                color: #000;
+                background: blueviolet;
+            }
+        }
+
+    .blink {
+        -webkit-animation: 1s blink infinite;
+        animation: 1s blink infinite;
+        border: none;
+        margin: 0;
+        height: 14px;
+        width: 2px;
+        position:absolute;
+        left:174px;
+        top:5px;
+        z-index:1;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="callout">实现效果</div>
+    <!-- <iframe src ="/Users/liuzhipeng26/Desktop/iframe.pdf" width="1000" height="5000" id="1" name="asdaf"></iframe> -->
+    <input type ="text" id = "input" readonly onclick="getInputFocus()" onchange="onChange()"/>
+    <!-- <button >点击获取焦点</button> -->
+    <div tabIndex = "1" onfocus="getInputFocus()" class="mockInput"><span class = "blink"></span></div>
+    <div><span></span></div>
+    <script>
+        function onChange(value) {
+            return value + '|';
+        } 
+
+        function getInputFocus(e) {
+            console.log("e", e);
+            document.activeElement.setAttribute('readonly', 'readonly')
+            setTimeout(() => {
+                const input = document.getElementById('input');
+                input.removeAttribute('readonly')
+            }, 200)
+
+        }
+        const onEdit = () => {
+            const { templateName, rxTemplateId } = { templateName: '小儿颗粒', rxTemplateId: '111'};
+            const { from, ...otherRoutes } = { a: 1, b: 2, c:3};
+            const commonUrl = `/tcmDrugs?templateName=${encodeURIComponent(templateName)}&rxTemplateId=${rxTemplateId}&fromTemplateEdit=1`;
+            const res = Object.keys(otherRoutes).reduce((total, key) => `${total}&${key}=${otherRoutes[key]}`, commonUrl);
+            console.log("res", res);
+        }
+        onEdit();
+    </script>
+</body>
+</html>

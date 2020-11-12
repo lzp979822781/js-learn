@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function checkTemplate() {
+            return new Promise(resolve => {
+                console.log("执行checkTemplate");
+                resolve();
+            }).then(data => {
+                console.log("删除 template file目录");
+            }).catch(error => console.log("check template file error", error))
+        }
+
+        function checkNative() {
+            return new Promise(resolve => {
+                console.log("执行 check Native目录");
+                resolve();
+            }).then(data => {
+                console.log("删除native目录");
+            }).catch(error => console.log("删除 native目录失败", error))
+        }
+
+        async function check() {
+            await checkTemplate();
+            await checkNative();
+        }
+
+        async function main() {
+            check();
+            download();
+        }
+
+        main();
+
+
+        function downTemplate() {
+            return new Promise(resolve => {
+                console.log("执行downTemplate");
+                resolve()
+            }).then(data => {
+                console.log("执行template npm包下载");
+            }).catch(error => console.log("down template error", error))
+        }
+        
+        function downNative() {
+            return new Promise(resolve => {
+                console.log("执行downNative");
+                resolve();
+            }).then(data => {
+                console.log("执行native npm包下载");
+            }).catch(error => console.log("down native error", error))
+        }
+
+        async function download() {
+            await downTemplate();
+            await downNative();
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .item1 {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin-left: 10px;
+            background-color: pink;
+        }
+
+        .item2 {
+            width: 200px;
+            height: 100px;
+            background-color: orange;
+        }
+
+        .container {
+            padding: 24px 8px;
+            background: lightcyan;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="box">
+        <div class="item1">float</div>
+        <div class="item2">block</div>
+    </div> -->
+    <script>
+        function handleBlur(e) {
+            console.log("arguments", arguments);
+        }
+
+        function handleClick(e) {
+            console.log("获取到焦点");
+        }
+    </script>
+    <div onblur = "handleBlur()" class = "container" tabIndex = "-1">
+        <input placeholder="测试失焦和冒泡"/>
+    </div>
+    
+</body>
+</html>

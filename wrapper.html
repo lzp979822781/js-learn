@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+width:0px;
+height:0px;
+border-top:10px solid red;
+border-right:10px solid transparent;
+border-bottom:10px solid transparent;
+border-left:10px solid transparent;
+}
+    </style>
+</head>
+<body>
+    <!-- <script src="./js/method-wrapper.js"></script> -->
+    <div></div>
+    <script src="./js/wrapper-method.js"></script>
+    function Foo() { </br>
+        getName = function () { alert(1); }; </br>
+        return this; </br>
+    } </br>
+    Foo.getName = function () { alert(2); }; </br>
+    Foo.prototype.getName = function () { alert(3); }; </br>
+    var getName = function () { alert(4); }; </br>
+    function getName() { alert(5); } </br>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ts</title>
+</head>
+<body>
+    <div id = "map_canvas"></div>
+    <!-- <script type="text/javascript" src="https://maps.google.com/maps/API/js?key=AIzaSyDDuGt0E5IEGkcE6ZfrKfUtE9Ko_de66pA"></script> -->
+    <!-- <script src = './hello-world.js'></script> -->
+    <script>
+        function bucketSort(arr) {
+            const isArray = Object.prototype.toString.call(arr) === '[object Array]';
+            if(!isArray || (isArray && arr.length < 2)) {
+                return arr;
+            }
+
+            let max = arr[0];
+            const recordArr = [];
+            for(let i = 1, len = arr.length; i < arr.length; i++) {
+                if(arr[i] > max) max = arr[i];
+                recordArr[arr[i]] = recordArr[arr[i]] ? recordArr[arr[i]]++ : 1;
+            }
+
+            for(let j = recordArr.length - 1; j >=0; j--) {
+                //  recordArr 的索引为出现的数字，值为数字出现的次数
+                for(let k = 0; k < recordArr[j]; k++) {
+                    console.log(j);
+                }
+            }
+        }
+
+        /* const data = [8, 100, 50, 22, 15, 6, 1, 1000, 999, 0]
+        bucketSort(data); */
+        function countSort(arr) {
+            if(!isNotNullArr(arr)) {
+                return arr;
+            }
+            const max = Math.max.apply(null, arr);
+            const min = Math.min.apply(null, arr);
+            const count = Array.from({ length: max-min+1 }, item => 0);
+            arr.forEach(item => {
+                count[item-min]++;
+            });
+
+            // 将count的值转化为每个数在result中的最大索引值
+            for(let i = 1; i< count.length; i++) {
+                count[i] += count[i-1]
+            }
+
+            const result = [];
+            for(let j = arr.length-1; j>=0; j--) {
+                result[count[arr[j]-min]-1] = arr[j];
+                count[arr[j]-min]--;
+            }
+
+            return result;
+        }
+
+        function isNotNullArr(data) {
+            const isArray = Object.prototype.toString.call(data) === '[object Array]';
+            return isArray && data.length > 1;
+        }
+
+        const data = [101,109, 107, 108,102, 103, 110,107,103];
+        // console.log("result", countSort(data));
+
+        // 用两个栈实现一个队列
+        function Queue(){
+            this.stack1 = [];
+            this.stack2 = [{ b:2 }];
+            this.push = function(item) {
+                while(this.stack2.length !== 0) {
+                    this.stack1.push(this.stack2.pop());
+                }
+                this.stack1.push(item);
+            }
+
+            this.pop = function() {
+                while(this.stack1.length > 0) {
+                    this.stack2.push(this.stack1.pop())
+                }
+
+                return this.stack2.pop();
+            }
+
+            this.print = function(){
+                const tempStack1 = this.stack1.slice();
+                const tempStack2 = this.stack2.slice();
+                const result = tempStack1.concat(tempStack2.reverse());
+                console.log("queue", result);
+            }
+        }
+
+        const queue = new Queue();
+        queue.push({ a:1 });
+        queue.push({ c:2 })
+
+        queue.print();
+        queue.pop();
+        queue.print();
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function formatMoney(num, place, sym, thousand = ",", decimal = ".") {
+            let number = num || 0;
+            const places = typeof Math.abs(place) === "number" ? place : 2;
+            const symbol = sym !== undefined ? sym : "元";
+            const negative = number < 0 ? "-" : "";
+            const i = `${parseInt((number = Math.abs(+number || 0).toFixed(places)), 10)}`;
+            const j = i.length > 3 ? i.length % 3 : 0;
+            return (
+                negative +
+                (j ? i.substr(0, j) + thousand : "") +
+                i.substr(j).replace(/(\d{3})(?=\d)/g, `$1${thousand}`) +
+                (places
+                    ? decimal +
+                    Math.abs(number - i)
+                        .toFixed(places)
+                        .slice(2)
+                    : "") +
+                symbol
+            );
+        }
+
+        console.log(formatMoney(0, ...[ 0, '', ', ']));
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=ß, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/animation.css">
+</head>
+<body>
+    <div class = 'list-mask' id = "container">
+        <div>dddd</div>
+    </div>
+
+    <button onclick="toggle()">切换样式</button>
+    <input placeholder="数字验证" type = "number" oninput="onInput(this.value)"/>
+    <script>
+        function onInput(e) {
+            console.log("value", e, typeof e);
+        }
+        var container = document.getElementById("container");
+        function toggle() {
+            container.classList.toggle('show', true);
+        }
+
+        const data = [
+            {
+                id: '1',
+                key: "1",
+                taskName:
+                    "1111西湖区湖底公园号西湖区湖底公园号西湖区湖底公园1号西湖区湖底公园1号",
+                companyName:
+                    "xxxx代发范德萨范德萨范德萨范德萨范德萨发范德萨范德萨发的发医药公司",
+                actFeeIncome: 18324399, // 千分位、最多支持两行、单位为元
+                status: "待审",
+                refundTime: "回款时间", // 回款时间
+                advanceExp: 542541341243,
+                alreadyExp: 43146535631,
+                processTime: "2019.09.17~2019.09.18",
+                paticipatedActs: "fdasfdasfdafd",
+                actTime: "2019.09.17",
+                operator: "xxxxx",
+                operatorTime: 1568025683000,
+                startTime: 1568024851000,
+                endTime: 1568024851000
+            },
+            {
+                id: '2',
+                key: "2",
+                taskName:
+                    "西湖区湖底公园号西湖区湖底公园号西湖区湖底公园1号西湖区湖底公园1号",
+                companyName:
+                    "xxxx代发范德萨范德萨范德萨范德萨范德萨发范德萨范德萨发的发医药公司",
+                actFeeIncome: 18324399, // 千分位、最多支持两行、单位为元
+                status: "待审",
+                refundTime: "回款时间", // 回款时间
+                advanceExp: 542541341243,
+                alreadyExp: 43146535631,
+                processTime: "2019.09.17~2019.09.18",
+                paticipatedActs: ["陈列:活动名称", "培训：活动名称", "动销：活动名称"],
+                actTime: ["2019.09.17", "2019.09.17", "2019.09.17"],
+                operator: "xxxxx",
+                operatorTime: 1568025683000,
+                startTime: 1568024851000,
+                endTime: 1568024851000
+            },
+            {
+                id: '3',
+                key: "3",
+                taskName:
+                    "西湖区湖底公园号西湖区湖底公园号西湖区湖底公园1号西湖区湖底公园1号",
+                companyName:
+                    "xxxx代发范德萨范德萨范德萨范德萨范德萨发范德萨范德萨发的发医药公司",
+                actFeeIncome: 18324399, // 千分位、最多支持两行、单位为元
+                status: "待审",
+                refundTime: "回款时间", // 回款时间
+                advanceExp: 542541341243,
+                alreadyExp: 43146535631,
+                processTime: "2019.09.17~2019.09.18",
+                paticipatedActs: "培训：活动名称",
+                actTime: "2019.09.17",
+                operator: "xxxxx",
+                operatorTime: 1568025683000,
+                startTime: 1568024851000,
+                endTime: 1568024851000
+            },
+            {
+                id: "4",
+                key: "4",
+                taskName:
+                    "西湖区湖底公园号西湖区湖底公园号西湖区湖底公园1号西湖区湖底公园1号",
+                companyName:
+                    "xxxx代发范德萨范德萨范德萨范德萨范德萨发范德萨范德萨发的发医药公司",
+                actFeeIncome: 18324399, // 千分位、最多支持两行、单位为元
+                status: "待审",
+                refundTime: "回款时间", // 回款时间
+                advanceExp: 542541341243,
+                alreadyExp: 43146535631,
+                processTime: "2019.09.17~2019.09.18",
+                paticipatedActs: "动销：活动名称",
+                actTime: "2019.09.17",
+                operator: "xxxxx",
+                operatorTime: 1568025683000,
+                startTime: 1568024851000,
+                endTime: 1568024851000
+            },
+        ];
+        let resArr = [];
+        let newArr = data.map((item, index) => {
+            let isArr = Array.isArray(item.paticipatedActs);
+            let isTimeArr = Array.isArray(item.actTime);
+            
+            if(!isArr) {
+
+                item._id = item.id;
+                item.length = 1;
+                resArr.push(Object.assign({}, item, {
+                    _id: item.id,
+                    length: 1
+                }));
+            } else {
+                let tempItem = item.paticipatedActs.map((temp, childIndex, currentArr) => {
+                    let lenObj = childIndex === 0 ? {length: currentArr.length}:{length: 0};
+                    let resItem = Object.assign({}, item, { _id: `${item.id}${childIndex}`, paticipatedActs: temp, actTime: isTimeArr ? item.actTime[childIndex] : item.actTime}, lenObj);
+                    resArr.push(resItem);
+                })
+            }
+            
+        })
+
+        console.log("resArr", resArr);
+
+        function genNumValidate(num) {
+            return new RegExp(`^[0-9a-zA-Z\\u4e00-\\u9fa5]{0,${num}}$`)
+        }
+
+        let reg = genNumValidate(200);
+        const ruleList = [{buyerType: 1}];
+        const newList = ruleList.map(({m,n ,y}) => ({m, n, y}));
+        console.log("newList", newList);
+    </script>
+</body>
+</html>
