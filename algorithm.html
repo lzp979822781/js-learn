@@ -10,5 +10,24 @@
     <script src="./js/sort.js"></script>
 </head>
 <body>
+    <!-- <div id="root"></div>
+    <script>
+        function strReplace(template, data) {
+            return template.replace(/\{\{([\w\.]*)\}\}/g, function(str, key){
+                console.log("str, key", str, key);
+                var keys = key.split(".");
+                var value = data[keys.shift()];
+                for(var i = 0; i < keys.length; i++) {
+                    value = value[keys[i]];
+                }
+
+                return (typeof value !== 'undefined' && value !== null) ? value: "";
+            })
+
+        }
+        var data = { user: { name: 'Phodal'}, info: { address: { city: '漳州'}}};
+        var temp = strReplace("<p>用户: {{user.name}}, 地址: {{info.address.city}}</p>", data);
+        document.getElementById("root").innerHTML = temp;
+    </script> -->
 </body>
 </html>
