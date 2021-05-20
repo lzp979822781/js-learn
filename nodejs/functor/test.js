@@ -9,4 +9,6 @@ const cars = [
 
 const fn = fp.flowRight(fp.prop('name'), fp.first);
 
-console.log(fn(cars));
+// console.log(fn(cars));
+
+const sum = fp.flowRight()
