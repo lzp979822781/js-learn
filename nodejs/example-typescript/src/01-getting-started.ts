@@ -3,3 +3,5 @@ const hello = (name: string) => {
 };
 
 hello('111');
+
+const a: symbol = Symbol();
