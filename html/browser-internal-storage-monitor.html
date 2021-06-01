@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内存测试</title>
+</head>
+<body>
+    <button id="btn">Add</button>
+    <script>
+        const btn = document.getElementById('btn');
+        const arr = [];
+        let tempEle;
+        function test() {
+            const ul = document.createElement('ul');
+            for(let i = 0; i < 10; i++) {
+                const li = document.createElement("li");
+                ul.appendChild(li);
+            }
+            tempEle = ul;
+            tempEle = null;
+        }
+        btn.addEventListener('click', test);
+    </script>
+</body>
+</html>
