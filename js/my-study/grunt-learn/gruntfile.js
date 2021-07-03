@@ -4,8 +4,33 @@ module.exports = grunt => {
         foo: {
             multiple: false,
             js: 1
+        },
+        build: {
+            // options为当前任务通用配置,子任务内部的同名配置会覆盖通用配置
+            options: {
+                foo: 'bce'
+            },
+            js: {
+                multiple: false,
+                options: {
+                    foo: 'js'
+                }
+            },
+            css: {
+                background: '#fff'
+            }
         }
-    })
+    });
+
+    
+    // 多个子任务并行执行 通过yarn grunt build执行
+    grunt.registerMultiTask('build', function(){
+        console.log('this.target', this.target);
+        console.log('this.data', this.data);
+        console.log('this.options', this.options());
+    });
+
+    // 通过yarn grunt foo执行 foo为任务名
     grunt.registerTask("foo", () => {
         console.log('foo', grunt.config('foo'));
     });
@@ -14,6 +39,7 @@ module.exports = grunt => {
         console.log('bar task');
     });
 
+    // 通过yarn grunt执行,不指定任务名的话就执行default任务
     grunt.registerTask('default', ["foo", "bad", "bar"]);
 
     grunt.registerTask("async-task", function() {
