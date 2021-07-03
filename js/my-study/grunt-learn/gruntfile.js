@@ -1,3 +1,6 @@
+const sass = require('sass');
+const loadGruntTasks = require('load-grunt-tasks');
+
 module.exports = grunt => {
 
     /* grunt.initConfig({
@@ -57,10 +60,48 @@ module.exports = grunt => {
             done(false); // 异步任务失败的标记方法
         }, 1000);
     }); */
-    grunt.initConfig({
+    /* grunt.initConfig({
         clean: {
             temp: "temp/*.txt"
         }
     })
-    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-clean'); */
+    grunt.initConfig({
+        // sass解析
+        sass: {
+            options: {
+                sourceMap: true,
+                implementation: sass
+            },
+            dist: {
+                files: {
+                    'dist/css/main.css': 'src/scss/main.scss'
+                }
+            }
+        },
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['@babel/preset-env']
+            },
+            dist: {
+                files: {
+                    'dist/js/main.js': 'src/js/main.js'
+                }
+            }
+        },
+        watch: {
+            js: {
+                files: 'src/**/*.js',
+                tasks: ['babel']
+            },
+            css: {
+                files: 'src/**/*.scss',
+                tasks: 'sass'
+            }
+        }
+    })
+
+    loadGruntTasks(grunt);
+    grunt.registerTask('default', ['babel', 'sass', 'watch']);
 };
