@@ -1,6 +1,6 @@
 module.exports = grunt => {
 
-    grunt.initConfig({
+    /* grunt.initConfig({
         foo: {
             multiple: false,
             js: 1
@@ -56,5 +56,11 @@ module.exports = grunt => {
             console.log('bad task');
             done(false); // 异步任务失败的标记方法
         }, 1000);
+    }); */
+    grunt.initConfig({
+        clean: {
+            temp: "temp/*.txt"
+        }
     })
+    grunt.loadNpmTasks('grunt-contrib-clean');
 };
