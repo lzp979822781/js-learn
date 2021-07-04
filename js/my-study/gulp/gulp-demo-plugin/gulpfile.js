@@ -1,8 +1,11 @@
-const {src, dest, parallel, series} = require('gulp');
+const {src, dest, parallel, series, watch} = require('gulp');
 
 const gulpLoadPlugins = require('gulp-load-plugins');
 const plugins = gulpLoadPlugins();
-const sass = require('gulp-sass')(require('sass'));
+// const sass = require('gulp-sass')(require('sass'));
+
+const browserSync = require('browser-sync');
+const browserServer = browserSync.create();
 
 const del = require('del');
 
@@ -55,19 +58,22 @@ const data = {
 const style = () => {
 	return src('src/assets/styles/*.scss', {base: 'src'})
 		.pipe(plugins.sass(require('sass'))().on('error', plugins.sass(require('sass')).logError))
-		.pipe(dest('dist'));
+		.pipe(dest('dist'))
+		.pipe(browserServer.reload({stream: true}));
 };
 
 const script = () => {
 	return src('src/assets/scripts/*.js', {base: 'src'})
 		.pipe(plugins.babel({ presets: ['@babel/preset-env']}))
-		.pipe(dest('dist'));
+		.pipe(dest('dist'))
+		.pipe(browserServer.reload({stream: true}));
 };
 
 const page = () => {
 	return src('src/*.html', {base: 'src'})
-		.pipe(plugins.swig({data}))
-		.pipe(dest('dist'));
+		.pipe(plugins.swig({data, defaults: {cache: false}}))
+		.pipe(dest('dist'))
+		.pipe(browserServer.reload({stream: true}));
 };
 
 const image = () => {
@@ -88,12 +94,39 @@ const extra = () => {
 		.pipe(dest('dist'));
 };
 
-const compile = parallel(style, script, page, image, font);
+const serve = () => {
+	watch('src/assets/styles/**', style);
+	watch('src/assets/scripts/**', script);
+	watch('src/*.html', page);
 
-const build = series(clean, parallel(compile, extra));
+	watch([
+		'src/assets/images/**',
+		'src/assets/fonts/**',
+		'public/**'
+	], browserServer.reload);
+	browserServer.init({
+		notify: false,
+		// files: 'dist/**', // 监听文件变化
+		server: {
+			baseDir: ['dist/', 'src', 'public'],
+			routes: {
+				'/node_modules': 'node_modules'
+			}
+		}
+	})
+};
+
+const compile = parallel(style, script, page);
+
+const build = series(clean, parallel(compile, image, font, extra));
+
+const dev = series(compile, serve);
 
 module.exports = {
 	build,
 	image,
-	font
+	font,
+	serve,
+	dev,
+	page
 }
