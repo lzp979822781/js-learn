@@ -1,0 +1,22 @@
+{
+  "name": "zce-gulp-demo",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/zce/zce-gulp-demo.git",
+  "author": "zce <w@zce.me> (https://zce.me)",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-load-plugins": "^2.0.7",
+    "gulp-sass": "^5.0.0",
+    "gulp-swig": "^0.9.1",
+    "sass": "^1.35.1"
+  }
+}
