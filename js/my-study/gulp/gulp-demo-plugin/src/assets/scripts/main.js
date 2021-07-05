@@ -9,6 +9,3 @@ $(($) => {
   })
 })
 
-const fn = () => {
-  console.log('gulp测试');
-};
