@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.7.12"
+    "@types/node": "^12.7.12",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
   }
 }
