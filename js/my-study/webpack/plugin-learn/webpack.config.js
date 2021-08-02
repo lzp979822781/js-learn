@@ -2,6 +2,25 @@ const path = require('path');
 const yaml = require('yamljs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+class MyPlugin {
+    apply(compiler) {
+        console.log('plugin 启动');
+        compiler.hooks.emit.tap('MyPlugin', compilation => {
+            for(const name in compilation.assets) {
+                if (name.endsWith('.js')) {
+                    // 获取源码
+                    const content = compilation.assets[name].source();
+                    const withoutCommets = content.replace(/\/\*\*+\*\//g, '');
+                    compilation.assets[name] = {
+                        source: () => withoutCommets,
+                        size: () => withoutCommets.length
+                    }
+                }
+            }
+        });
+    }
+}
+
 module.exports = {
     mode: 'none',
     entry: {
@@ -43,6 +62,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: '管理输出'
-        })
+        }),
+        new MyPlugin()
     ]
 };
