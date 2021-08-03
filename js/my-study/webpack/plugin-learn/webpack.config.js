@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 class MyPlugin {
     apply(compiler) {
-        console.log('plugin 启动');
         compiler.hooks.emit.tap('MyPlugin', compilation => {
             for(const name in compilation.assets) {
                 if (name.endsWith('.js')) {
@@ -22,7 +21,7 @@ class MyPlugin {
 }
 
 module.exports = {
-    mode: 'none',
+    mode: 'development',
     entry: {
         index: './src/index.js',
         print: './src/print.js',
@@ -31,6 +30,10 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
     },
     module: {
         rules: [
@@ -62,7 +65,6 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: '管理输出'
-        }),
-        new MyPlugin()
+        })
     ]
 };

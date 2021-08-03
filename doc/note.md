@@ -394,5 +394,74 @@ manifest 列表文件内容拿到之后，会告诉 HMR的 Runtime 请求那些�
 5.总结：webpack-dev-server 虽然可以直接来启动 HMR，但是真正核心的是 webpack-dev-middleware。webpack-dev-server 除了这个中间件之外主要功能就是个静态服务器。
 ```
 
+### Webpack-dev-server 配置
+
+**启动命令**
+
+```
+"start": "webpack serve --open --progress"
+```
+
+直接用webpack-dev-server启动在webpack5下会报错
+
+webpack.config.js配置
+
+```
+const path = require('path');
+const yaml = require('yamljs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    mode: 'development',
+    entry: {
+        index: './src/index.js',
+        print: './src/print.js',
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource'
+            },
+            {
+                test: /\.(csv|tsv)$/i,
+                use: ['csv-loader'],
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource'
+            },
+            {
+                test: /\.yaml$/i,
+                type: 'json',
+                parser: {
+                    parse: yaml.parse
+                }
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: '管理输出'
+        })
+    ]
+};
+```
+
+
+
 
 
