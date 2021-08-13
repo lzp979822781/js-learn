@@ -108,6 +108,30 @@ const f3 = fp.flowRight(fp.join('-'), fp.map(_.toLower), fp.split(" "))
 console.log(f3(test2));
 ```
 
+函数组合
+
+```
+const _ = require('lodash');
+const compose = (...fns) => value => {
+	return _.reduceRight(fns, (acc, fn) => fn(acc), value);
+}
+```
+
+
+
+fp入口
+![fp](https://gitee.com/lzp979822781/personal-img/raw/master/img/fp.png)
+
+使用lodash/fp flowRight
+
+```
+_.compose is an alias of _.flowRight
+```
+
+
+
+
+
 ## 3.3 函子
 
 函子是一个**普通对象**（在其他语言中，可能是一个类），它实现了 map 函数，在遍历每个对象值的时候生成一个新对象。

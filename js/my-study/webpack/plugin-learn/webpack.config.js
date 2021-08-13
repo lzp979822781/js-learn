@@ -23,17 +23,17 @@ class MyPlugin {
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.js',
-        print: './src/print.js',
+        index: './src/index.js'
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true
     },
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        hot: true
     },
     module: {
         rules: [
@@ -66,5 +66,18 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: '管理输出'
         })
-    ]
+    ],
+    optimization: {
+        usedExports: true, // 只导出已使用的部分
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                }
+            }
+        }
+    }
 };
