@@ -34,7 +34,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test:/.js$/,
+                test:/\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -42,6 +42,12 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
+            },
+            {
+                test:/\.js$/,
+                exclude: /node_modules/,
+                use: 'eslint-loader',
+                enforce: 'pre'
             },
             {
                 test: /.css$/,

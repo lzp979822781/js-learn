@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import createHeading from './heading.js'
+// import _ from 'lodash';
+import createHeading from './heading.js';
 import './main.css';
 
-const heading = createHeading()
+const heading = createHeading();
 document.body.append(heading);
 
 const img = new Image();
