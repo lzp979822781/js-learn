@@ -4,7 +4,9 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'standard'
+    'standard',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended'
   ],
   parserOptions: {
     ecmaVersion: 12

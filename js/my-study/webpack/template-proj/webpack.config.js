@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyPlugin = require("copy-webpack-plugin");
 
+// css plugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
     mode: "development",
     entry: {
@@ -39,7 +42,10 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ]
                     }
                 }
             },
@@ -52,8 +58,19 @@ module.exports = {
             {
                 test: /.css$/,
                 use: [
-                    'style-loader',
-                    'css-loader'
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    ["postcss-preset-env"]
+                                ]
+                            }
+                        }
+                    },
+                    'less-loader'
                 ]
             },
             {
@@ -72,6 +89,11 @@ module.exports = {
             patterns: [
                 {from: 'public', to:'public'}
             ]
-        })
+        }),
+        // 提取css到单独的文件中
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css",
+            chunkFilename: "[id].[contenthash].css"
+        }),
     ]
 }
