@@ -1,13 +1,13 @@
 import './main.css';
 
 export default () => {
-  const element = document.createElement('h2');
+    const element = document.createElement('h2');
 
-  element.textContent = 'Hello world';
-  element.classList.add('heading');
-  element.addEventListener('click', () => {
-    alert('Hello webpack');
-  });
+    element.textContent = 'Hello world';
+    element.classList.add('heading');
+    element.addEventListener('click', () => {
+        alert('Hello webpack');
+    });
 
-  return element;
+    return element;
 };

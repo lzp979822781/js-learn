@@ -142,6 +142,23 @@ src/index.js  -> dist/main.js
   ;
 ```
 
+```
+整体说明：导出的对象整体是一个自执行函数	
+__webpack_modules__：  [, fn:(module, module.exports, __webpack_require__) => {
+	// 为module添加__esModule值
+	// 为module.exports对象添加default属性值为函数，函数中返回模块代码
+}, ...otherMoudle]; // 所有入口模块相关的模块定义
+__webpack_module_cache__: 模块缓存对象
+__webpack_require__ // 获取模块，先从缓存中读取，如果没有就定义初始模块，这是一个包含exports的模块。然后执行__webpack_modules__的第二个参数方法，
+__webpack_require__.r // 给对象上添加属性,这里网exports添加__esModule属性，值为{value: true}
+__webpack_require__.o // 判断对象对象上是否含有某个属性
+__webpack_require__.d // 复制另外一个对象的属性到exports对象上
+
+// 最后是入口执行方法
+依次加载入口模块
+
+```
+
 ### webpack5和webpack4的区别
 
 对于图片的解析
