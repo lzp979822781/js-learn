@@ -43,6 +43,7 @@ src/index.js  -> dist/main.js
 /******/ 	var __webpack_modules__ = ([,((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
                 __webpack_require__.r(__webpack_exports__);
+                // 定义的default属性值应该是一个get函数
                 __webpack_require__.d(__webpack_exports__, {"default": () => (__WEBPACK_DEFAULT_EXPORT__)});
                 const __WEBPACK_DEFAULT_EXPORT__ = (() => {
                     const element = document.createElement('h2')
@@ -149,15 +150,158 @@ __webpack_modules__：  [, fn:(module, module.exports, __webpack_require__) => {
 	// 为module.exports对象添加default属性值为函数，函数中返回模块代码
 }, ...otherMoudle]; // 所有入口模块相关的模块定义
 __webpack_module_cache__: 模块缓存对象
-__webpack_require__ // 获取模块，先从缓存中读取，如果没有就定义初始模块，这是一个包含exports的模块。然后执行__webpack_modules__的第二个参数方法，
+__webpack_require__ // 获取模块，先从缓存中读取，如果没有就定义初始模块，这是一个包含exports的模块。然后执行__webpack_modules__的第二个参数方法，最后返回的是module.exports属性值
 __webpack_require__.r // 给对象上添加属性,这里网exports添加__esModule属性，值为{value: true}
 __webpack_require__.o // 判断对象对象上是否含有某个属性
 __webpack_require__.d // 复制另外一个对象的属性到exports对象上
 
 // 最后是入口执行方法
 依次加载入口模块
+```
+
+入口文件加载CommonJs
 
 ```
+编译后的CommonJs模块保留module.exports = xxxx 原始语句
+```
+
+入口文件导入es module
+
+导入的文件内部通过export default 导出
+
+```
+__webpack_require__.d中给模块添加的是exports default属性
+// 原始代码
+const name = 'login';
+export default name;
+
+// 编译后代码
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+            __webpack_require__.r(__webpack_exports__);
+            __webpack_require__.d(__webpack_exports__, {
+                // 值应该是defineProperty中的get方法
+                "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+            });
+            const name = 'login';
+            const __WEBPACK_DEFAULT_EXPORT__ = (name);
+}
+```
+
+通过export {}导出
+
+```
+__webpack_require__.d给exports添加的是对应的变量信息
+// 原始代码
+export const name = 'login';
+
+// 编译后代码
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+   __webpack_require__.r(__webpack_exports__);
+	 __webpack_require__.d(__webpack_exports__, {
+   		"name": () => (/* binding */ name)
+   });
+	 const name = 'login';
+
+}
+```
+
+**测试用例**
+
+login.js
+
+```
+const age = 18;
+
+export default '刘志鹏';
+
+export {age};
+```
+
+入口文件
+
+```
+import name, {age} from './login';
+console.log('name', name);
+console.log('age', age);
+document.write('首页加载');
+// document.write(about);
+```
+
+打包后代码，自己写
+
+```
+(() => {
+
+    // 模块定义
+    var __webpack_module__ = [ , (__unused_module__, __webpack_exports__, __webpack_require__) => {
+        // 添加module标记
+        __webpack_require__.r(__webpack_exports__);
+        __webpack_require__.d(__webpack_exports__, {
+            default: () => '刘志鹏',
+            age: () => age
+        })
+
+        const age = 18; 
+    }];
+
+    var __webpack_module_cache__ = {};
+    // require函数
+    function __webpack_require__(moduleId) {
+        var cacheModule = __webpack_module_cache__[moduleId];
+        if (cacheModule !== undefined) {
+            return cacheModule[moduleId].exports;
+        }
+
+        var module = __webpack_module_cache__[moduleId] = {
+            exports: {}
+        };
+        __webpack_module__[moduleId](module, module.exports, __webpack_require__);
+        return module.exports;
+    }
+
+    // 判断是否包含某个属性
+    (() => {
+        __webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
+    })();
+    __webpack_require__.a = 'aaa';
+    // 通过defineProperty添加属性
+    (() => {
+        __webpack_require__.d = (exports, definition) => {
+            for (var key in definition) {
+                if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+                    Object.defineProperty(exports, key, {enumerable: true, get: definition[key]});
+                }
+            }
+        };
+    })();
+
+    // 添加__esModule属性,先判断Symbol是否存在
+    (() => {
+        __webpack_require__.r = exports => {
+            if (typeof Symbol !== undefined && Symbol.toStringTag) {
+                Object.defineProperty(exports, Symbol.toStringTag, {value: 'Module'});
+            }
+
+            Object.defineProperty(exports, '__esModule', {value: true});
+        };
+    })();
+
+    // 加载入口模块
+    var __webpack_exports__ = {};
+    (() => {
+        __webpack_require__.r(__webpack_exports__);
+        var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+        console.log('name', _login__WEBPACK_IMPORTED_MODULE_0__.default);
+        console.log('age', _login__WEBPACK_IMPORTED_MODULE_0__.age);
+        document.write('首页加载');
+    })();
+
+})()
+```
+
+
 
 ### webpack5和webpack4的区别
 
