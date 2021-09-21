@@ -1,5 +1,7 @@
 
 
+[toc]
+
 # 前端笔记
 
 ## es module
@@ -301,7 +303,25 @@ document.write('首页加载');
 })()
 ```
 
+#### 动态import加载原理分析
 
+(1)初始执行
+
+定义window.webpackJsonp数组对象并对其的push方法进行劫持，重定义webpackJsonpCallback为push方法
+
+webpackJsonpCallback方法用于合并动态模块到全局的module对象，并将动态模块的状态改为resolve
+
+(2)动态加载的文件源码
+
+如加载login.js则实际源码为window.webpackJsonp.push([ ['login'], { 'src/login.js': function(module, exports){} }])
+
+(4)动态加载的源代码
+
+![image](https://gitee.com/lzp979822781/personal-img/raw/master/img/webpack4%20dynamic-import-origin-code.png)
+
+__webpack_require___.e中创建动态模块的初始状态存于installedChunks中，初始为installedChunks['login'] = [resolve, reject, promise]
+
+然后在html中插入script标签，src属性为 src/login.js文件从而触发window.webpackJsonp的push方法从而执行webpackJsonpCallback方法修改状态
 
 ### webpack5和webpack4的区别
 
