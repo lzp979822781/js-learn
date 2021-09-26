@@ -1,13 +1,14 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: 'none',
     entry: './src/main.js',
     output: {
-        filename: 'bundle.js',
-        // clean: true,
+        filename: '[name].js',
+        clean: true,
         path: path.join(__dirname, 'dist'),
-        publicPath: 'dist/'
+        chunkFilename: '[name].js',
     },
     module: {
         rules: [
@@ -19,5 +20,10 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './index.html'
+        })
+    ]
 }
