@@ -644,5 +644,47 @@ module.exports = {
 
 
 
+### webpack hook
+
+Complier 负责编译流程
+
+compilation 负责创建bundles
+
+#### tapable
+
+本身是一个独立的库，工作流程
+
+（1）实例化hook注册事件监听
+
+（2）通过hook触发时间监听
+
+（3）执行懒编译生成的可执行代码
+
+#### hook
+
+本质是tapable实例对象,按执行机制分为并行和串行
+
+hook: 普通钩子，监听器之间互相独立不干扰
+
+BailHook: 熔断钩子，某个监听返回非undefined值时后续不执行
+
+WaterfallHook: 瀑布沟子，上一个监听的返回值可以传递到下一个
+
+LoopHook: 循环钩子，如果当前未返回false则一直执行
+
+#### 同步钩子
+
+SyncHook、SyncBailHook、SyncWaterfallHook、SyncLoopHook
+
+#### 异步串行钩子
+
+AsyncSeriesHook、AsyncSeriesBailHook、AsyncSeriesWaterfallHook
+
+#### 异步并行钩子
+
+AsyncParalleHook、AsyncParalleBailHook
+
+
+
 
 
