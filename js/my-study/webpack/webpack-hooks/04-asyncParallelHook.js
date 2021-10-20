@@ -49,7 +49,7 @@ asycParallelHook.tapPromise('fn2', function(name, callback) {
         setTimeout(() => {
             console.log('fn2', name);
             resolve();
-        }, 500);
+        }, 1000);
     });
 });
 
