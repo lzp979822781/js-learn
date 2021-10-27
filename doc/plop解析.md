@@ -8,8 +8,6 @@
 "plop": "./node_modules/plop/bin/plop.js"
 ```
 
-## 
-
 ## 1.2 添加plop配置文件
 
 在工程根目录下添加plopfile.js
@@ -136,15 +134,15 @@ component.less.hbs
     "prepare": "husky install"
   },
   "devDependencies": {
-    "ava": "^3.15.0",
+    "ava": "^3.15.0", // 测试用例工具
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "execa": "^5.0.0",
-    "husky": "^7.0.2",
-    "inquirer-directory": "^2.2.0",
-    "lint-staged": "^11.2.3",
-    "nyc": "^15.1.0",
+    "execa": "^5.0.0", // 通过代码执行终端命令
+    "husky": "^7.0.2", // commit钩子工具
+    "inquirer-directory": "^2.2.0", // 目录选择工具
+    "lint-staged": "^11.2.3", // 代码检查
+    "nyc": "^15.1.0", // 结合测试工具使用，显示测试覆盖率
     "plop-pack-fancy-comments": "^0.2.0",
     "prettier": "^2.4.1",
     "queue-microtask": "^1.2.3"
@@ -158,12 +156,12 @@ component.less.hbs
     * registering module loaders.
     * 自动加载配置文件依赖和注册模块加载器
     */
-    "interpret": "^1.2.0",
+    "interpret": "^1.2.0", // 配合liftoff使用
     "liftoff": "^2.5.0", // 一个全局命令行调用本地项目中安装的包、加载配置文件
-    "minimist": "^1.2.5",
-    "node-plop": "^0.26.3",
-    "ora": "^3.4.0",
-    "v8flags": "^2.0.10"
+    "minimist": "^1.2.5", // 命令行参数转换
+    "node-plop": "^0.26.3", // 通过代码测试功能而不是cli，通过命令行以外的流程和工具自动生成代码
+    "ora": "^3.4.0", // 终端loading工具
+    "v8flags": "^2.0.10" // 获取可用的v8和node flags
   },
   "engines": {
     "node": ">=8.9.4"
@@ -180,7 +178,9 @@ component.less.hbs
 
 [liftoff][liftoff]
 
+## 2.2 流程解析
+
 # 附录
 
 [handlebars]: https://handlebarsjs.com/
-[ liftoff ]: https://www.bilibili.com/read/cv4996413/
+[liftoff]: https://www.bilibili.com/read/cv4996413/
