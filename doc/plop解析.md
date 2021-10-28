@@ -178,7 +178,117 @@ component.less.hbs
 
 [liftoff][liftoff]
 
-## 2.2 流程解析
+## 2.2 包目录说明
+
+node-plop目录说明
+
+```
+src
+├─baked-in-helpers.js
+├─fs-promise-proxy.js
+├─generator-runner.js // prompt、action处理方法
+├─index.js
+├─node-plop.js // 所有工具集合
+├─prompt-bypass.js
+├─actions // 所有操作的处理
+|    ├─_common-action-add-file.js
+|    ├─_common-action-interface-check.js
+|    ├─_common-action-utils.js
+|    ├─add.js 
+|    ├─addMany.js
+|    ├─append.js
+|    ├─index.js
+|    └modify.js
+```
+
+plop 目录说明
+
+```
+plop
+├─LICENSE
+├─README.md
+├─inquirer-prompts.md
+├─package.json
+├─plop-load.md
+├─wallaby.js
+├─src
+|  ├─bypass.js
+|  ├─console-out.js
+|  ├─input-processing.js
+|  ├─plop.d.ts
+|  └plop.js // 主入口文件
+├─example
+|    ├─package.json
+|    ├─plopfile.js
+|    ├─templates
+|    |     ├─burger.txt
+|    |     ├─change-me.txt
+|    |     ├─part.txt
+|    |     ├─potatoes.txt
+|    |     └temp.txt
+├─bin
+|  └plop.js // 包入口文件
+```
+
+
+
+## 2.3 流程解析
+
+### 2.3.1初始化的说明
+
+初始化Liftoff name为plop实例，则在目录下寻找plopfile名的文件后缀和文件名可以随意配置
+
+In this example Liftoff will look for myappfile{.js,.json,.coffee}. If a config with the extension .coffee is found, Liftoff will try to require coffee-script/require from the current working directory.
+
+```
+const MyApp = new Liftoff({
+  name: 'myapp',
+  extensions: {
+    '.js': null,
+    '.json': null,
+    '.coffee': 'coffee-script/register'
+  }
+});
+```
+
+In this example, Liftoff will look for `.myapp{rc}`.
+
+```
+const MyApp = new Liftoff({
+  name: 'myapp',
+  configName: '.myapp',
+  extensions: {
+    'rc': null
+  }
+});
+```
+
+In this example, Liftoff will automatically attempt to load the correct module for any javascript variant supported by [interpret](https://github.com/js-cli/js-interpret) (as long as it does not require a register method).
+
+```
+const MyApp = new Liftoff({
+  name: 'myapp',
+  extensions: require('interpret').jsVariants
+});
+```
+
+```
+callback(env)
+A function called after your environment is prepared. A good place to modify the environment before calling execute. When invoked, this will be your instance of Liftoff. The env param will contain the following keys:
+
+cwd: the current working directory
+require: an array of modules that liftoff tried to pre-load
+configNameSearch: the config files searched for
+configPath: the full path to your configuration file (if found)
+configBase: the base directory of your configuration file (if found)
+modulePath: the full path to the local module your project relies on (if found)
+modulePackage: the contents of the local module's package.json (if found)
+configFiles: an object of filepaths for each found config file (filepath values will be null if not found)
+```
+
+### 2.3.2 流程说明
+
+
 
 # 附录
 
