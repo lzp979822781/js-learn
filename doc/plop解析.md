@@ -96,7 +96,7 @@ component.less.hbs
 
 ## 1.4 使用
 
-![plop使用](https://gitee.com/lzp979822781/personal-img/raw/master/img/plop2.png)
+![img](https://gitee.com/lzp979822781/personal-img/raw/master/img/plop2.png)
 
 # 2 源码解析
 
@@ -189,12 +189,12 @@ src
 ├─generator-runner.js // prompt、action处理方法
 ├─index.js
 ├─node-plop.js // 所有工具集合
-├─prompt-bypass.js
+├─prompt-bypass.js // 输入参数和promp提示处理
 ├─actions // 所有操作的处理
 |    ├─_common-action-add-file.js
 |    ├─_common-action-interface-check.js
 |    ├─_common-action-utils.js
-|    ├─add.js 
+|    ├─add.js // 新增功能
 |    ├─addMany.js
 |    ├─append.js
 |    ├─index.js
@@ -287,6 +287,8 @@ configFiles: an object of filepaths for each found config file (filepath values 
 ```
 
 ### 2.3.2 流程说明
+
+![plop流程](https://gitee.com/lzp979822781/personal-img/raw/master/img/plop%E6%B5%81%E7%A8%8B.png)
 
 
 
