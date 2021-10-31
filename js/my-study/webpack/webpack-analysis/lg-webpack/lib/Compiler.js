@@ -7,6 +7,8 @@ const {
     AsyncSeriesHook
 } = require('tapable');
 
+const NormalModuleFactory = require('./NormalModuleFactory');
+const Compilation = require('./Compilation');
 class Compiler extends Tapable {
     constructor(context) {
         super();
@@ -30,8 +32,48 @@ class Compiler extends Tapable {
         }
     }
 
-    compile(callback) {
+    newCompilationParams() {
+        return {
+            normalModuleFactory: new NormalModuleFactory()
+        };
+    }
 
+    createCompilation(params) {
+        return new Compilation(this);
+    }
+
+    newCompilation(params) {
+        const compilation = this.createCompilation(params);
+        return compilation;
+    }
+
+
+    /**
+     * 01 newCompilationParams方法调用，返回params normalModuleFactory
+     * 02 上述的操作是为了获取params
+     * 03 接着调用beforeCompile钩子监听,在它的回调中触发compile监听
+     * 04 调用newCompilation方法，传入上面的params,返回一个compilation对象
+     * 05 调用了一个createCompilation (Compilation.js中)
+     * 06 上述操作完成之后就可以触发make钩子监听
+     * @param {*} callback
+     * @memberof Compiler
+     */
+    compile(callback) {
+        // 拼接参数
+        const params = this.newCompilationParams();
+
+        // 调用compile的beforeCompile hook
+        this.hooks.beforeCompile.callAsync(params, err => {
+            this.hooks.compile.call(params);
+
+            // 生成编译对象Compilation
+            const compilation = this.newCompilation(params);
+            // 执行make hook 
+            this.hooks.make.callAsync(compilation,  err => {
+                console.log('make 钩子触发');
+                callback && callback();
+            });
+        });
     }
 
     run(callback) {
