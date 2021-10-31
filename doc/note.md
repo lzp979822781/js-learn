@@ -684,6 +684,24 @@ AsyncSeriesHook、AsyncSeriesBailHook、AsyncSeriesWaterfallHook
 
 AsyncParalleHook、AsyncParalleBailHook
 
+### webpack流程分析
+
+#### 初始流程分析
+
+![webpack初始流程](https://gitee.com/lzp979822781/personal-img/raw/master/img/webpack/webpack%E6%B5%81%E7%A8%8B%E4%B8%80.png)
+
+```
+01 webpack cmd的作用是找到 ***/webpack/bin/webpack.js
+02 webpack.js的核心作用是require node_modules/webpack-cli/bin/cli.js
+03 cli.js
+   03-01 当前文件一般有两个操作，处理参数、将参数交给不同的逻辑(业务)
+   03-02 组装成option
+   03-03 编译器compiler
+   03-04 compiler.run 执行webpack配置文件
+```
+
+
+
 
 
 

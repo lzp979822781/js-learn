@@ -1,0 +1,18 @@
+{
+  "name": "lg-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/webpack.js",
+  "bin": {
+    "lg-webpack": "webpack.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tapable": "^1.1.3"
+  }
+}
