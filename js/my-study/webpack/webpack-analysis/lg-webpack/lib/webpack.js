@@ -12,6 +12,7 @@ const webpack = (options) => {
     // 03 挂载所有传入的plugins到compiler对象上
     if (options.plugins && Array.isArray(options.plugins)) {
         for (const plugin of options.plugins) {
+            // 执行所有的plugin
             plugin.apply(compiler);
         }
     }
