@@ -8,7 +8,9 @@ class SingleEntryPlugin {
     apply(compiler) {
         compiler.hooks.make.tapAsync('SingleEntryPlugin', (compilation, callback) => {
             console.log('make');
-            callback();
+            const {context, entry, name} = this;
+            compilation.addEntry(context, entry, name, callback);
+            // callback();
         });
     }
 }
