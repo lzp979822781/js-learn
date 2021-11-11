@@ -38,12 +38,15 @@ class Compiler extends Tapable {
         };
     }
 
-    createCompilation(params) {
+    createCompilation() {
         return new Compilation(this);
     }
 
     newCompilation(params) {
-        const compilation = this.createCompilation(params);
+        const compilation = this.createCompilation();
+        this.hooks.thisCompilation.call(compilation, params);
+        this.hooks.compilation.call(compilation, params);
+
         return compilation;
     }
 

@@ -4,12 +4,13 @@ class NormalModule {
         this.entry = data.entry;
         this.rawRequest = data.rawRequest;
         this.resourse = data.resource; // 代码绝对路径
+        this.parser = data.parser;
         this._source; // 源代码
         this._ast; // 存放某个模块源代码的ast 代码
     }
 
     getSource(compilation, callback) {
-        compilation.inputFileSystem.readFile(this.resourse, callback);
+        compilation.inputFileSystem.readFile(this.resourse, 'utf8', callback);
     }
 
     /**
@@ -38,3 +39,5 @@ class NormalModule {
         });
     }
 }
+
+module.exports = NormalModule;

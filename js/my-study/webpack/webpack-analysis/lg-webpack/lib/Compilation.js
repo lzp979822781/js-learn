@@ -1,9 +1,11 @@
 const path = require('path');
-const {tapable, SyncHook} = require('tapable');
+const {Tapable, SyncHook} = require('tapable');
+const Parser = require('./Parser');
 const NormalModuleFactory = require('./NormalModuleFactory');
 
 const normalModuleFactory = new NormalModuleFactory();
-class Compilation extends tapable {
+const parser = new Parser();
+class Compilation extends Tapable {
     constructor(compiler) {
         super();
         this.compiler = compiler;
@@ -36,7 +38,7 @@ class Compilation extends tapable {
             context,
             rawRequest: entry,
             resource: path.join(context, entry),
-            // parser: 
+            parser
         });
 
         const afterBuild = err => {
