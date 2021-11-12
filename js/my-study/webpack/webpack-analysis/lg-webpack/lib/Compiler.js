@@ -7,6 +7,8 @@ const {
     AsyncSeriesHook
 } = require('tapable');
 
+const Stats = require('./Stats');
+
 const NormalModuleFactory = require('./NormalModuleFactory');
 const Compilation = require('./Compilation');
 class Compiler extends Tapable {
@@ -74,7 +76,7 @@ class Compiler extends Tapable {
             // 执行make hook 
             this.hooks.make.callAsync(compilation,  err => {
                 console.log('make 钩子触发');
-                callback && callback();
+                callback && callback(err, compilation);
             });
         });
     }
@@ -85,17 +87,8 @@ class Compiler extends Tapable {
         }
 
         // 编译完成回调,调用finalCallback
-        const onCompiled = function(compilation) {
-            finalCallback(null, {
-                toJson() {
-                    return {
-                        entries: [], // 入口文件信息
-                        chunks: [], // chunk信息
-                        modules: [], // 模块信息
-                        assets: [] // 资源信息
-                    };
-                }
-            })
+        const onCompiled = function(err, compilation) {
+            finalCallback(null, new Stats(compilation));
         };
 
         // 从beforeRun开始执行
