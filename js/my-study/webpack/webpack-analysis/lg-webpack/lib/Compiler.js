@@ -7,6 +7,9 @@ const {
     AsyncSeriesHook
 } = require('tapable');
 
+const path = require('path');
+const mkdirp = require('mkdirp');
+
 const Stats = require('./Stats');
 
 const NormalModuleFactory = require('./NormalModuleFactory');
@@ -31,6 +34,8 @@ class Compiler extends Tapable {
 			make: new AsyncParallelHook(["compilation"]),
 			finishMake: new AsyncSeriesHook(["compilation"]),
 			afterCompile: new AsyncSeriesHook(["compilation"]),
+
+            emit: new AsyncSeriesHook(["compilation"])
         }
     }
 
@@ -75,20 +80,53 @@ class Compiler extends Tapable {
             const compilation = this.newCompilation(params);
             // 执行make hook 
             this.hooks.make.callAsync(compilation,  err => {
-                console.log('make 钩子触发');
-                callback && callback(err, compilation);
+                // 在这里处理chunk
+                /* console.log('make 钩子触发');
+                callback && callback(err, compilation); */
+                compilation.seal((err) => {
+                    this.hooks.afterCompile.callAsync(compilation, err => {
+                        callback(err, compilation)
+                    });
+                });
             });
         });
     }
 
+    emitAssets(compilation, callback) {
+        // 当前需要做的核心： 01 创建dist 02在目录创建完成后执行文件的写操作
+        const outputPath = this.options.output.path;
+
+        // 定义一个方法用于文件的生成操作
+        const emitFiles = err => {
+            const assets = compilation.assets;
+            for(const file in assets) {
+                const source = assets[file];
+                const targetPath = path.posix.join(outputPath, file);
+                this.outputFileSystem.writeFileSync(targetPath, source, 'utf8');
+            }
+
+            callback(err);
+        };
+
+        // 创建目录后启动文件写入
+        this.hooks.emit.callAsync(compilation, err => {
+            mkdirp.sync(this.options.output.path);
+            emitFiles();
+        });
+    }
+
     run(callback) {
-        const finalCallback = function(err, stats) {
-            callback(err, stats);
-        }
 
         // 编译完成回调,调用finalCallback
-        const onCompiled = function(err, compilation) {
-            finalCallback(null, new Stats(compilation));
+        const onCompiled = (err, compilation) => {
+            // 在这里处理最终构建
+            // finalCallback(null, new Stats(compilation));
+
+            // 最终在这里将处理好的chunk写入到指定的文件然后输出到dist
+            this.emitAssets(compilation, err => {
+                const stats = new Stats(compilation);
+                callback(err, stats);
+            });
         };
 
         // 从beforeRun开始执行
