@@ -56,10 +56,15 @@ module.exports = {
                 enforce: 'pre'
             },
             {
-                test: /.css$/,
+                test: /.css$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
