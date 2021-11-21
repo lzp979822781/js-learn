@@ -11,7 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: "development",
-    entry: "./src/index.js",
+    entry: "./src/main.ts", // 相对于context路径
     output: {
         filename: "[name].[contenthash].js",
         path: path.join(__dirname, 'dist'),
@@ -31,7 +31,8 @@ module.exports = {
             }
         }
     }, */
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'nosources-source-map',
     target: 'web', // 防止运行webpack-dev-server时.browserslistrc干扰
     devServer: {
         open: true,
@@ -64,6 +65,11 @@ module.exports = {
                 exclude: /node_modules/,
                 use: 'eslint-loader',
                 enforce: 'pre'
+            },
+            {
+                test:/\.ts$/,
+                exclude: /node_modules/,
+                use: 'babel-loader'
             },
             {
                 test: /\.less$/i,
