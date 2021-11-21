@@ -25,7 +25,8 @@ module.exports = {
   rules: {
     semi: ['error', 'always'],
     indent: ['error', 4],
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    'import/no-absolute-path': "off"
   },
   settings: {
     react: {

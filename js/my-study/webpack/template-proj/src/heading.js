@@ -1,4 +1,4 @@
-import './main.css';
+import './main.less';
 
 export default () => {
     const element = document.createElement('h2');
