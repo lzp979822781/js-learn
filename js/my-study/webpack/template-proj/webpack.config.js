@@ -15,12 +15,14 @@ module.exports = {
     output: {
         filename: "[name].[contenthash].js",
         path: path.join(__dirname, 'dist'),
+        chunkFilename: 'js/chunk_[name].js',
         clean: true
     },
     // 影响babel.config.js的解析
-    /* optimization: {
+    optimization: {
         moduleIds: 'deterministic',
-        runtimeChunk: 'single',
+        chunkIds: 'deterministic'
+        /* runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
                 vendor: {
@@ -29,8 +31,8 @@ module.exports = {
                     chunks: 'all'
                 }
             }
-        }
-    }, */
+        } */
+    },
     // devtool: 'inline-source-map',
     devtool: 'nosources-source-map',
     target: 'web', // 防止运行webpack-dev-server时.browserslistrc干扰

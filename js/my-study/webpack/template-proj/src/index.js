@@ -1,22 +1,24 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-// import _ from 'lodash';
+import _ from 'lodash';
 import React from 'react';
 import ReactDom from 'react-dom';
 
 import axios from 'axios';
 
-import App from '@/app';
-import './title.js';
-/* import createHeading from './heading.js';
+import createHeading from './heading.js';
 
 import imgSrc from '/public/image/flower.png';
 import './main.less';
 
+import App from '@/app';
+import(/* webpackChunkName: "title" */'./title.js');
+
 const heading = createHeading();
 document.body.append(heading);
 
+/*
 const img = new Image();
 img.src = '/public/image/flower.png';
 document.body.appendChild(img);

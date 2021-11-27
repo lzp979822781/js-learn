@@ -3,9 +3,15 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 // css plugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     mode: "production",
+    optimization: {
+        minimizer: [
+            new CssMinimizerPlugin(),
+        ]
+    },
     plugins: [
         // new BundleAnalyzerPlugin(),
         new CopyPlugin({
@@ -21,8 +27,8 @@ module.exports = {
         }),
         // 提取css到单独的文件中
         new MiniCssExtractPlugin({
-            filename: "[name].[contenthash].css",
-            chunkFilename: "[id].[contenthash].css"
+            filename: "css/[name].[contenthash:8].css",
+            chunkFilename: "[id].[contenthash:8].css"
         })
     ]
 }
