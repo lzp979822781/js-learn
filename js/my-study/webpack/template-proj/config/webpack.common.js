@@ -2,7 +2,6 @@ const {merge} = require('webpack-merge');
 const path = require('path');
 const resolvePath = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
 // css plugin
@@ -19,7 +18,10 @@ const getComConfig = (isProduction) => {
             filename: "[name].[contenthash:8].js",
             path: resolvePath('./dist'),
             chunkFilename: 'js/chunk_[name].js',
-            clean: true
+            clean: true,
+            /* libraryTarget: 'umd', // 以库的形式导出且兼容所有规范
+            library: 'myUtils', // 导出库的名称
+            globalObject: 'this' */
         },
         // 不需要打包的项
         externals: {
@@ -30,11 +32,6 @@ const getComConfig = (isProduction) => {
             chunkIds: 'deterministic',
             moduleIds: 'deterministic',
             runtimeChunk: 'single',
-            minimizer: [
-                new TerserWebpackPlugin({
-                    extractComments: false
-                })
-            ],
             splitChunks: {
                 chunks: 'all',
                 cacheGroups: {
