@@ -14,10 +14,6 @@ function updateNodeElement(el, virtualDOM) {
         } else if (['value', 'target'].includes(propName)) {
             el[propName] = value;
         } else if (propName !== 'children') {
-            if (propName === 'className') {
-                
-            }
-
             el.setAttribute(propName === 'className' ? 'class' : propName, value);
         }
     })
