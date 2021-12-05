@@ -1,5 +1,6 @@
 import mountElement from './mountElement';
 import updateNodeElement from './updateNodeElement';
+import mountRef from './mountRef';
 
 function createDOMElement(virtualDOM, container) {
     let newEle = null;
@@ -13,9 +14,14 @@ function createDOMElement(virtualDOM, container) {
         updateNodeElement(newEle, virtualDOM);
     }
 
-    virtualDOM.children.forEach(item => {
-        mountElement(item, newEle);
-    });
+    newEle._virtualDOM = virtualDOM;
+    if (Array.isArray(virtualDOM.children)) {
+        virtualDOM.children.forEach(item => {
+            mountElement(item, newEle);
+        });
+    }
+
+    mountRef(virtualDOM, newEle);
 
     return newEle;
 }
