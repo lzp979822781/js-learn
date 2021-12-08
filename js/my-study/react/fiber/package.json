@@ -1,23 +1,29 @@
 {
-  "name": "js-learn",
+  "name": "fiber",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "babal.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm-run-all -p dev:*",
+    "dev:server-compile": "webpack --config webpack.config.server.js --watch",
+    "dev:server": "nodemon ./build/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
-    "@types/node": "^12.7.12",
     "babel-loader": "^8.2.3",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
