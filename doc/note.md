@@ -708,9 +708,11 @@ AsyncParalleHook、AsyncParalleBailHook
 
 `DllPlugin` 和 `DllReferencePlugin` 用某种方法实现了拆分 bundles，同时还大幅度提升了构建的速度。"DLL" 一词代表微软最初引入的动态链接库。
 
+## react
 
+### fiber
 
-
+![image](https://gitee.com/lzp979822781/personal-img/raw/master/img/fiber.png)
 
 
 

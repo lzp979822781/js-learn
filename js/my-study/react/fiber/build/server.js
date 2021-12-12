@@ -15,7 +15,7 @@
   \*******************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const express = __webpack_require__(/*! express */ \"express\");\n\nconst app = express();\nconst template = `\n    <html>\n        <head>\n            <title>React Fiber</title>\n        </head>\n        <body>\n        <div id=\"root\"></div>\n        </body>\n    </html> \n`;\napp.get('*', (req, res) => {\n  res.send(template);\n});\napp.listen(3000, () => console.log('server is running'));\n\n//# sourceURL=webpack://fiber/./server.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\n\nvar app = express();\napp.use(express[\"static\"](\"dist\"));\nvar template = \"\\n    <html>\\n        <head>\\n            <title>React Fiber</title>\\n        </head>\\n        <body>\\n            <div id=\\\"root\\\"></div>\\n            <script src='bundle.js'></script>\\n        </body>\\n    </html> \\n\";\napp.get('*', function (req, res) {\n  res.send(template);\n});\napp.listen(3000, function () {\n  return console.log('server is running');\n});\n\n//# sourceURL=webpack://fiber/./server.js?");
 
 /***/ }),
 
