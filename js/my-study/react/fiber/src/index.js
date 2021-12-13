@@ -36,13 +36,13 @@ function FnComponent(props) {
   return <div>{props.title}FnComponent</div>
 }
 
-render(<Greating />, root);
+render(jsx, root);
 
-/* setTimeout(() => {
+setTimeout(() => {
   const jsx = (
     <div>
       <div>奥利给</div>
     </div>
   );
   render(jsx, root);
-}, 2000); */
+}, 2000);
