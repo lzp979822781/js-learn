@@ -714,5 +714,13 @@ AsyncParalleHook、AsyncParalleBailHook
 
 ![image](https://gitee.com/lzp979822781/personal-img/raw/master/img/fiber.png)
 
+### 架构
 
+react 16版本分为三层：调度层、协调层、渲染层
+
+Scheduler(调度层): 调度任务的优先级、高优任务优先进入协调器
+
+Reconciler(协调层): 构建fiber数据结构，比对Fiber对象找出差异，记录fiber对象要进行的DOM操作
+
+Render(渲染层): 负责将发生变化的部分渲染到页面上
 
