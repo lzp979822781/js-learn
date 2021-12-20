@@ -32,14 +32,14 @@
 const jsx = (
   <div id="a1">
     <div id="b1">
-      <div id="c1"></div>
+      <div id="c1">c1</div>
       <div id="c2">
-        <div id="d1"></div>
-        <div id="d2"></div>
+        <div id="d1">d1</div>
+        <div id="d2">d2</div>
       </div>
     </div>
     <div id="b2">
-      <div id="c3"></div>
+      <div id="c3">c3</div>
     </div>
   </div>
 )
@@ -131,6 +131,7 @@ function beginWork(workInProgressFiber) {
 }
 
 function completeUnitOfWork(workInProgressFiber) {
+  console.log('workInProgressFiber', workInProgressFiber);
   // 获取当前 Fiber 的父级
   const returnFiber = workInProgressFiber.return
   // 父级是否存在
@@ -160,7 +161,6 @@ function completeUnitOfWork(workInProgressFiber) {
 
 function commitRoot() {
   let currentFiber = workInProgressRoot.firstEffect
-  console.log('currentFiber', currentFiber);
   while (currentFiber) {
     currentFiber.return.stateNode.appendChild(currentFiber.stateNode)
     currentFiber = currentFiber.nextEffect
