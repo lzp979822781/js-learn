@@ -1,7 +1,11 @@
+import Counter from './components/Counter';
+import Modal from './components/Modal';
+
 function App() {
 	return (
 		<div className="App">
-			app working
+			<Counter />
+			<Modal />
 		</div>
 	);
 }
