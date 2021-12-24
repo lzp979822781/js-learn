@@ -1,10 +1,20 @@
+import {handleActions as createReducer} from 'redux-actions';
+
 import {INCREMENT, DECREMENT} from '../const/counter.const';
 
 const initialState = {
     count: 0
 };
 
-export default (state = initialState, action) => {
+const handleIncrement = (state, action) => ({...state, count: state.count + action.payload});
+const handleDecrement = (state, action) => ({...state, count: state.count - action.payload});
+
+export default createReducer({
+    [INCREMENT]: handleIncrement,
+    [DECREMENT]: handleDecrement
+}, initialState);
+
+/* export default (state = initialState, action) => {
     switch(action.type) {
         case INCREMENT:
             return  {
@@ -19,4 +29,4 @@ export default (state = initialState, action) => {
         default:
             return state;
     }
-};
+}; */

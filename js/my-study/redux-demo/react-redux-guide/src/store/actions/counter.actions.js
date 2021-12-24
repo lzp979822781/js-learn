@@ -1,9 +1,10 @@
+import {createAction} from 'redux-actions';
 import {INCREMENT, DECREMENT, INCREMENT_ASYNC} from '../const/counter.const';
 
 /**
  * 生成action 
  */
-export const increment = payload => ({type: INCREMENT, payload});
-export const decrement = payload => ({type: DECREMENT, payload});
+export const increment = createAction(INCREMENT);
+export const decrement = createAction(DECREMENT);
 
-export const increment_async = payload => ({type: INCREMENT_ASYNC, payload});
+export const increment_async = createAction(INCREMENT_ASYNC);
