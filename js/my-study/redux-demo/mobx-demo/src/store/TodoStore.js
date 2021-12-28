@@ -5,6 +5,7 @@ export default class TodoStore {
     constructor() {
         this.todos = [];
         // makeAutoObservable(this);
+        // loaddata在组件中调用的时候无法自动绑定this
         makeAutoObservable(this, {
             loadData: flow.bound
         });
