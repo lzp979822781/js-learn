@@ -1,6 +1,11 @@
+import {useRootStore} from '../../store';
+
 function TodoEditing({ todo }) {
-  const { modifyTodoIsEditing, title } = todo
-  return <label onDoubleClick={modifyTodoIsEditing}>{title}</label>
+  const { title } = todo;
+
+  const {todoStore} = useRootStore();
+  const {modifyTodoIsEditing} = todoStore;
+  return <label onDoubleClick={() => modifyTodoIsEditing(todo)}>{title}</label>
 }
 
 export default TodoEditing

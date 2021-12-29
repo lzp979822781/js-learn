@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
+import {useRootStore} from '../../store';
 
 function Editing({ todo }) {
-  const { isEditing, modifyTodoTitle } = todo
-  const ref = useRef(null)
+  const {todoStore} = useRootStore();
+  const { isEditing } = todo;
+  const {modifyTodoTitle} = todoStore;
+  const ref = useRef(null);
   useEffect(() => {
     if (isEditing) {
       ref.current.focus()
@@ -10,7 +13,7 @@ function Editing({ todo }) {
   }, [isEditing])
   return (
     <input
-      onBlur={() => modifyTodoTitle(ref.current.value)}
+      onBlur={() => modifyTodoTitle(todo, ref.current.value)}
       ref={ref}
       className="edit"
       defaultValue={todo.title}

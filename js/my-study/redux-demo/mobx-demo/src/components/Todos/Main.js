@@ -5,7 +5,7 @@ import Todo from "./Todo"
 
 function Main() {
 	const { todoStore } = useRootStore();
-	const { todos, loadData } = todoStore;
+	const { loadData, filterTodos } = todoStore;
 
 	useEffect(() => {
 		loadData();
@@ -13,7 +13,7 @@ function Main() {
 	return (
 		<section className="main">
 			<ul className="todo-list">
-				{todos.map(todo => (
+				{filterTodos.map(todo => (
 					<Todo todo={todo} key={todo.id} />
 				))}
 			</ul>

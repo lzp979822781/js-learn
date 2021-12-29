@@ -1,6 +1,10 @@
 
+import {useRootStore} from '../../store';
+
 function TodoRemove({ id }) {
-  return <button onClick={() => {}} className="destroy" />
+  const {todoStore} = useRootStore();
+  const {removeTodo} = todoStore;
+  return <button onClick={() => {removeTodo(id)}} className="destroy" />
 }
 
 export default TodoRemove

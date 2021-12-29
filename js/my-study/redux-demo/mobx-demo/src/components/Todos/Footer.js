@@ -1,16 +1,19 @@
 import UnCompletedTodoCount from "./UnCompletedTodoCount"
-import { observer } from "mobx-react-lite"
+import { observer } from "mobx-react-lite";
+import {useRootStore} from '../../store';
 
 function Footer() {
+  const {todoStore} = useRootStore();
+  const {filterCondition, changeFilterCondition} = todoStore;
   return (
     <footer className="footer">
       <UnCompletedTodoCount />
       <ul className="filters">
         {["All", "Active", "Completed"].map(item => (
-          <li>
+          <li key={item}>
             <button
-              // className={filterCondition === item ? "selected" : ""}
-              onClick={() => {}}
+              className={filterCondition === item ? "selected" : ""}
+              onClick={() => {changeFilterCondition(item)}}
             >
               {item}
             </button>
