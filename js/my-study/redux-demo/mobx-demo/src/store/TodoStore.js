@@ -9,9 +9,7 @@ export default class TodoStore {
         this.filterCondition = "All"
         // makeAutoObservable(this);
         // loaddata在组件中调用的时候无法自动绑定this
-        makeAutoObservable(this, {
-            loadData: flow.bound
-        });
+        makeAutoObservable(this, {}, {autoBind: true});
     }
 
     *loadData() {
@@ -19,7 +17,7 @@ export default class TodoStore {
         this.todos = response.data;
     }
 
-    addTodo = title => {
+    addTodo(title) {
         this.todos.push({title, id: genUuid()});
     }
 
