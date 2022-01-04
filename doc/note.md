@@ -724,3 +724,77 @@ Reconciler(协调层): 构建fiber数据结构，比对Fiber对象找出差异�
 
 Render(渲染层): 负责将发生变化的部分渲染到页面上
 
+### emotion使用
+
+@emotion/core被重命名为@emotion/react
+
+React 17转换方式
+
+第一种 文件中引入
+
+```
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import {jsx} from '@emotion/react'; // @emotion/core重命名为@emotion/react
+```
+
+React 16使用
+
+```
+/** @jsx jsx */
+import {jsx} from '@emotion/react'; // @emotion/core重命名为@emotion/react
+```
+
+第二种 引入
+
+在babel/presets中引入@emotion/babel-preset-css-prop
+
+```
+{
+    "presets": [
+      "react-app",
+      "@emotion/babel-preset-css-prop"
+    ]
+}
+```
+
+#### @emotion/react使用
+
+css使用
+
+```
+import {css} from '@emotion/react';
+
+// 第一种
+const styleObj = {
+	width: 200,
+	height: 200,
+	background: 'skyblue'
+};
+
+// 第二种
+const styleString = css`
+	width: 200px;
+	height: 200px;
+	background: skyblue
+`;
+
+// 第三种
+const style = css({
+	width: 200,
+	height: 200,
+	background: 'pink'
+})
+
+function App() {
+	return (
+		<div css={style}>
+			app working
+		</div>
+	);
+}
+
+export default App;
+```
+
+### Chakra组件库 
