@@ -1,23 +1,20 @@
 import app from'./http';
-import React from 'react';
-import {renderToString} from 'react-dom/server';
 import express from 'express';
-import Home from '../share/pages/Home';
+import {matchRoutes} from 'react-router-config';
+import render from './render';
+import createStore from './createStore';
+import routes from '../share/routes';
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    const content = renderToString(<Home />);
-
-    res.send(`
-        <html>
-            <head>
-                <title>react ssr</title>
-            </head>
-            <body>
-                <div id='root'>${content}</div>
-                <script src='bundle.js'></script>
-            </body>
-        </html>
-    `)
+app.get('*', (req, res) => {
+    const store = createStore();
+    const promises = matchRoutes(routes, req.path).map(({route}) => {
+        if (route.loadData) {
+            return route.loadData(store);
+        }
+    });
+    Promise.all(promises).then(data => {
+        res.send(render(req, store));
+    })
 });
