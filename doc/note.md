@@ -798,3 +798,29 @@ export default App;
 ```
 
 ### Chakra组件库 
+
+### Next.js
+
+工程
+
+```
+npm init next-app 工程名
+```
+
+静态网站导出
+
+```
+// package.json
+{
+	scripts: {
+		export: next build && next export
+	}
+}
+```
+
+next应用部署
+
+```
+1.地址  https://vercel.com/
+```
+
