@@ -824,3 +824,13 @@ next应用部署
 1.地址  https://vercel.com/
 ```
 
+### Gatsby
+
+官网https://www.gatsbyjs.com/ 静态站点生成器
+
+工程创建
+
+```
+npx gatsby new gatsby-guide https://github.com/gatsbyjs/gatsby-starter-hello-world.git
+```
+
