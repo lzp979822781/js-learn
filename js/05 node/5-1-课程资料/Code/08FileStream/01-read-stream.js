@@ -9,7 +9,7 @@ class MyFileReadStream extends EventEmitter{
     this.mode = options.mode || 438
     this.autoClose = options.autoClose || true 
     this.start = options.start || 0
-    this.end = options.start 
+    this.end = options.end 
     this.highWaterMark = options.highWaterMark || 64 * 1024 
 
     this.open()
